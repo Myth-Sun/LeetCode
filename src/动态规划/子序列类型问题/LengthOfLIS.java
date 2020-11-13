@@ -1,4 +1,4 @@
-package 动态规划;
+package 动态规划.子序列类型问题;
 
 import java.util.Arrays;
 
