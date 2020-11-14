@@ -97,7 +97,7 @@ public class LongestCommonSubsequence {
 
     public static void main(String[] args) {
         LongestCommonSubsequence l = new LongestCommonSubsequence();
-        int i = l.longestCommonSubsequence1("abc", "abc");
+        int i = l.longestCommonSubsequence1("abc", "def");
         System.out.println(i);
     }
 }
