@@ -37,6 +37,38 @@ public class MinimumDeleteSum {
         return dp(s1, 0, s2, 0);
     }
 
+//    public int minimumDeleteSum1(String s1, String s2) {
+//        int m = s1.length(), n = s2.length(),res=0;
+//        System.out.println("m"+m);
+//        System.out.println("n"+n);
+//        memo = new int[m+1][n+1];
+//        for(int i=0;i<=m;i++)
+//            memo[i][0]=0;
+//        for(int j=0;j<=n;j++)
+//            memo[0][j]=0;
+//
+//        for(int i=1;i<=m;i++){
+//            for(int j=1;j<=n;j++){
+//                if(i==m){
+//                    for(int q=j;q<n;q++)
+//                        memo[i][j]+=s2.charAt(q);
+//                    return memo[i][j];
+//                }
+//                if(j==n){
+//                    for(int q=i;q<m;q++)
+//                        memo[i][j]+=s1.charAt(q);
+//                    return memo[i][j];
+//                }
+//                if(s1.charAt(i-1)==s2.charAt(j-1))
+//                    memo[i][j]=memo[i-1][j-1];
+//                else{
+//                    memo[i][j]=Math.min(s1.charAt(i-1)+memo[i][j-1],s2.charAt(j-1)+memo[i-1][j]);
+//                }
+//            }
+//        }
+//        return dp(s1, 0, s2, 0);
+//    }
+
     public int dp(String s1, int i, String s2, int j) {
         int res = 0;
         //s1已遍历完
@@ -60,6 +92,7 @@ public class MinimumDeleteSum {
         }
         return memo[i][j];
     }
+
 
     public static void main(String[] args) {
         MinimumDeleteSum minimumDeleteSum = new MinimumDeleteSum();
