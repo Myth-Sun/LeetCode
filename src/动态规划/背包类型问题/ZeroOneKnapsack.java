@@ -19,6 +19,7 @@ public class ZeroOneKnapsack {
 
     //N个物品，可载重量为W，wt为物品重量列表,val为物品价值列表
     public int knapsack(int N, int W, int[] wt, int[] val) {
+        //dp[i][j]表示对于前i个物品，当前背包的容量为w,在这种情况下可以装的最大容量为dp[i][w]
         int dp[][] = new int[N + 1][W + 1];
         //base case:dp[0][..]=dp[..][0]=0,没有物品或者背包没有空间时，能装的最大价值为0
         for (int[] row : dp)
