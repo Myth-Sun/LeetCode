@@ -61,9 +61,11 @@ public class EraseOverlapIntervals {
   }
 
   public static void main(String[] args) {
-    int[][] intervals = {{1, 2}, {2, 3}};
+    int[][] intervals = {{1, 2}, {2, 3},{3,4},{4,5}};
     EraseOverlapIntervals eraseOverlapIntervals = new EraseOverlapIntervals();
     int i = eraseOverlapIntervals.eraseOverlapIntervals(intervals);
     System.out.println(i);
+    int i1 = eraseOverlapIntervals.intervalSchedule(intervals);
+    System.out.println(i1);
   }
 }
