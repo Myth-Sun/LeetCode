@@ -1,5 +1,8 @@
 package 动态规划.其他经典问题;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 正则表达式匹配 给你一个字符串s和一个字符规律p，请你来实现一个支持 '.'和'*'的正则表达式匹配。
  * <p>
@@ -30,55 +33,62 @@ package 动态规划.其他经典问题;
  */
 public class IsMatch {
 
-  public boolean isMatch(String s, String p) {
-    //s:字符串 ,p:正则表达式
-    return dp(s, 0, p, 0);
-  }
+    Map<String, Boolean> memo = new HashMap<>();
 
-  public boolean dp(String s, int i, String p, int j) {
-    boolean res = false;
-    int m = s.length(), n = p.length();
-    //正则表达式p遍历结束，如果字符串s也遍历完则匹配，否则不匹配
-    if (j == n) {
-      return m == i;
+    public boolean isMatch(String s, String p) {
+        //s:字符串 ,p:正则表达式
+        return dp(s, 0, p, 0);
     }
-    //字符串s已经遍历完，需要判断剩余的正则表达式p是否可以匹配空串
-    if (i == m) {
-      //不符合'a*b*..'的格式
-      if ((n - j) % 2 == 1) {
-        return false;
-      }
-      for (; j + 1 < p.length(); j += 2) {
-        if (p.charAt(j + 1) != '*') {
-          return false;
+
+    public boolean dp(String s, int i, String p, int j) {
+        boolean res = false;
+        int m = s.length(), n = p.length();
+        //正则表达式p遍历结束，如果字符串s也遍历完则匹配，否则不匹配
+        if (j == n) {
+            return m == i;
         }
-      }
-      return true;
+        //字符串s已经遍历完，需要判断剩余的正则表达式p是否可以匹配空串
+        if (i == m) {
+            //不符合'a*b*..'的格式
+            if ((n - j) % 2 == 1) {
+                return false;
+            }
+            for (; j + 1 < p.length(); j += 2) {
+                if (p.charAt(j + 1) != '*') {
+                    return false;
+                }
+            }
+            return true;
+        }
+        String key = i + "," + j;
+        if (memo.containsKey(key)) {
+            return memo.get(key);
+        }
+        //s[i]==p[j]
+        if (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.') {
+            if (j < n - 1 && p.charAt(j + 1) == '*') {
+                //'*'匹配0次或多次
+                res = dp(s, i, p, j + 2) || dp(s, i + 1, p, j);
+            } else {
+                res = dp(s, i + 1, p, j + 1);
+            }
+        } else {
+            //判断p[j+1]是否为'*'
+            if (j < n - 1 && p.charAt(j + 1) == '*') {
+                //匹配0次 j+2:跳过正则表达式p的‘x*’
+                res = dp(s, i, p, j + 2);
+            } else {
+                res = false;
+            }
+        }
+        memo.put(key, res);
+        return res;
     }
-    //s[i]==p[j]
-    if (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.') {
-      if (j < n - 1 && p.charAt(j + 1) == '*') {
-        //'*'匹配0次或多次
-        res = dp(s, i, p, j + 2) || dp(s, i + 1, p, j);
-      } else {
-        res = dp(s, i + 1, p, j + 1);
-      }
-    } else {
-      //判断p[j+1]是否为'*'
-      if (j < n - 1 && p.charAt(j + 1) == '*') {
-        //匹配0次 j+2:跳过正则表达式p的‘x*’
-        res = dp(s, i, p, j + 2);
-      } else {
-        res = false;
-      }
-    }
-    return res;
-  }
 
-  public static void main(String[] args) {
-    IsMatch isMatch = new IsMatch();
-    String s = "mississippi", p = "mis*is*p*.";
-    boolean match = isMatch.isMatch(s, p);
-    System.out.println(match);
-  }
+    public static void main(String[] args) {
+        IsMatch isMatch = new IsMatch();
+        String s = "mississippi", p = "mis*is*p*.";
+        boolean match = isMatch.isMatch(s, p);
+        System.out.println(match);
+    }
 }
