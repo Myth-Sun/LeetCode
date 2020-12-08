@@ -56,7 +56,7 @@ public class MaxProfit {
         //  dp[i][k][0]=Math.max(dp[i-1][k][0],dp[i-1][k-1][1]+prices[i])
         //                      昨天没有持有，今天rest  昨天持有，今天sell
         //  dp[i][k][1]=Math.max(dp[i-1][k][1],dp[i-1][k-1][0]-prices[i])
-        //                      昨天持有，今天rest   昨天没有持有们今天buy
+        //                      昨天持有，今天rest   昨天没有持有,今天buy
         for (int i = 0; i < N; i++) {
             for (int k = K; k >= 1; k--) {//k倒序遍历
                 if (i == 0) {
@@ -164,12 +164,51 @@ public class MaxProfit {
         return dpI0;
     }
 
+    /**
+     * 309. 最佳买卖股票时机含冷冻期
+     * 给定一个整数数组，其中第i个元素代表了第i天的股票价格 。
+     *
+     * 设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:
+     *
+     * 你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+     * 卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。
+     * 示例:
+     *
+     * 输入: [1,2,3,0,2]
+     * 输出: 3 
+     * 解释: 对应的交易状态为: [买入, 卖出, 冷冻期, 买入, 卖出]
+     *
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown
+     * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     */
+    public int maxProfitKInfWithCool(int[] prices) {
+        //尽可能地完成交易-->K为正无穷，此时可以认为K和K-1是一样的
+        int N = prices.length;
+        //没有股票，返回0
+        if (N == 0)
+            return 0;
+
+        int dpI0 = 0, dpI1 = Integer.MIN_VALUE;
+        int dpPre0 = 0;//代表dp[i-2][0]
+        for (int i = 0; i < N; i++) {
+//            由于冷冻期为1天，因此第i天选择buy时，要从i-2的状态转移，而不是i-1
+//            dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
+//            dp[i][1] = max(dp[i-1][1], dp[i-2][0] - prices[i])
+            int temp = dpI0;
+            dpI0 = Math.max(dpI0, dpI1 + prices[i]);
+            dpI1 = Math.max(dpI1, dpPre0 - prices[i]);
+            dpPre0 = temp;//下轮迭代为i+1，此时保存i-1，下轮迭代正好差2
+        }
+        return dpI0;
+    }
+
     public static void main(String[] args) {
         MaxProfit maxProfit = new MaxProfit();
         int k = 2;
-        int[] prices = {7,6,4,3,1};
+        int[] prices = {1,2,3,0,2};
 //        int i = maxProfit.maxProfit(k, prices);
-        int i = maxProfit.maxProfitKInf(prices);
+        int i = maxProfit.maxProfitKInfWithCool(prices);
         System.out.println(i);
 
     }
