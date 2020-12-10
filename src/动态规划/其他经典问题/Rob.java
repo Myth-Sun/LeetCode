@@ -33,7 +33,6 @@ public class Rob {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
     int[] memo;
-
     public int rob(int[] nums) {
         memo = new int[nums.length];
         Arrays.fill(memo, -1);
