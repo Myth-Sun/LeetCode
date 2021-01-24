@@ -27,16 +27,26 @@ public class ReverseString {
 
     public void reverseString(char[] s) {
         int len = s.length;
-        for (int i = 0; i < len / 2; i++) {
-            char temp = s[i];
-            s[i] = s[len - 1 - i];
-            s[len - 1 - i] = temp;
+//        for (int i = 0; i < len / 2; i++) {
+//            char temp = s[i];
+//            s[i] = s[len - 1 - i];
+//            s[len - 1 - i] = temp;
+//        }
+        //双指针方法
+        int start = 0;
+        int end = len - 1;
+        while (start < end) {
+            char temp = s[start];
+            s[start] = s[end];
+            s[end] = temp;
+            start++;
+            end--;
         }
     }
 
     public static void main(String[] args) {
         ReverseString reverseString = new ReverseString();
-        char[] s = {'H','a','n','n','a','h'};
+        char[] s = {'H', 'a', 'n', 'n', 'a', 'h'};
         reverseString.reverseString(s);
         System.out.println(s);
     }
