@@ -1,5 +1,10 @@
 package 字符串;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * 151. 翻转字符串里的单词
  * 给定一个字符串，逐个翻转字符串中的每个单词。
