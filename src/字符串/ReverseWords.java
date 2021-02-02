@@ -85,7 +85,10 @@ public class ReverseWords {
             point = end + 1;
 
         }
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        if (stringBuilder.length() > 0) {
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        }
+
         return stringBuilder.toString();
     }
 
@@ -100,7 +103,7 @@ public class ReverseWords {
     }
 
     public static void main(String[] args) {
-        String str = "  Bob    Loves  Alice   ";
+        String str = "";
         ReverseWords reverseWords = new ReverseWords();
         String s = reverseWords.reverseWords(str);
         System.out.println(s);
