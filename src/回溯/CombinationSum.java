@@ -67,7 +67,7 @@ public class CombinationSum {
             ans.add(new ArrayList<>(path));
             return;
         }
-        for (int i = startIndex; i < n && sum + candidates[i] <= target; i++) {
+        for (int i = startIndex; i < n; i++) {
             path.add(candidates[i]);
             sum += candidates[i];
             backtracking(i);
