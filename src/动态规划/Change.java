@@ -50,4 +50,11 @@ public class Change {
         }
         return dp[amount];
     }
+
+    public static void main(String[] args) {
+        Change c = new Change();
+        int amount = 5;
+        int[] coins = {1,2,5};
+        c.change(amount, coins);
+    }
 }
