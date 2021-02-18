@@ -21,45 +21,44 @@ import java.util.Arrays;
 
 public class CoinChange {
 
-  /**
-   *
-   * @param amount
-   * @param coins
-   * @return
-   */
-  public int change(int amount, int[] coins) {
-    int n = coins.length;
-    //dp[i][j]:若只使用 coins 中的前 i 个硬币的面值，若想凑出金额 j，有 dp[i][j] 种凑法。
-    int dp[][] = new int[n + 1][amount + 1];
+    /**
+     * @param amount
+     * @param coins
+     * @return
+     */
+    public int change(int amount, int[] coins) {
+        int n = coins.length;
+        //dp[i][j]:若只使用 coins 中的前 i 个硬币的面值，若想凑出金额 j，有 dp[i][j] 种凑法。
+        int dp[][] = new int[n + 1][amount + 1];
 
-    //base case:
-    // dp[0][..]=0 不使用任何硬币，无法凑出任何金额
-    // dp[..][0]=1 凑出目标金额为0，此时只有“无为而治”一种凑法
-      for (int[] row : dp) {
-          Arrays.fill(row, 0);
-      }
-      for (int i = 0; i <= n; i++) {
-          dp[i][0] = 1;
-      }
+        //base case:
+        // dp[0][..]=0 不使用任何硬币，无法凑出任何金额
+        // dp[..][0]=1 凑出目标金额为0，此时只有“无为而治”一种凑法
+        for (int[] row : dp) {
+            Arrays.fill(row, 0);
+        }
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = 1;
+        }
 
-      for (int i = 1; i <= n; i++) {
-          for (int j = 1; j <= amount; j++) {
-              if (j - coins[i - 1] < 0) {
-                  //金额数小于硬币面值，选择不装入该硬币
-                  dp[i][j] = dp[i - 1][j];
-              } else {
-                  //不使用第i个硬币情况下的值+使用第i个硬币情况下的值
-                  dp[i][j] = dp[i - 1][j] + dp[i][j - coins[i - 1]];
-              }
-          }
-      }
-    return dp[n][amount];
-  }
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= amount; j++) {
+                if (j - coins[i - 1] < 0) {
+                    //金额数小于硬币面值，选择不装入该硬币
+                    dp[i][j] = dp[i - 1][j];
+                } else {
+                    //不使用第i个硬币情况下的值+使用第i个硬币情况下的值
+                    dp[i][j] = dp[i - 1][j] + dp[i][j - coins[i - 1]];
+                }
+            }
+        }
+        return dp[n][amount];
+    }
 
-  public static void main(String[] args) {
-    CoinChange coinChange = new CoinChange();
-    int[] coins = {10};
-    int change = coinChange.change(10, coins);
-    System.out.println(change);
-  }
+    public static void main(String[] args) {
+        CoinChange coinChange = new CoinChange();
+        int[] coins = {10};
+        int change = coinChange.change(10, coins);
+        System.out.println(change);
+    }
 }
