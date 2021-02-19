@@ -50,6 +50,45 @@ public class SpiralOrder {
             }
             colBegin++;
         }
+
+        return res;
+    }
+
+    public int[] spiralOrderI(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return new int[0];
+        }
+        int m = matrix.length, n = matrix[0].length;
+        int[] res = new int[m * n];
+
+        int index = 0;
+        int rowBegin = 0, rowEnd = m - 1, colBegin = 0, colEnd = n - 1;
+        while (rowBegin <= rowEnd && colBegin <= colEnd) {
+            for (int i = colBegin; i <= colEnd; i++) {
+                res[index] = matrix[rowBegin][i];
+                index++;
+            }
+            rowBegin++;
+            for (int i = rowBegin; i <=rowEnd ; i++) {
+                res[index] = matrix[i][colEnd];
+                index++;
+            }
+            colEnd--;
+            if (rowBegin <= rowEnd) {
+                for (int i = colEnd; i >=colBegin ; i--) {
+                    res[index] = matrix[rowEnd][i];
+                    index++;
+                }
+            }
+            rowEnd--;
+            if (colBegin <= colEnd) {
+                for (int i = rowEnd; i >=rowBegin ; i--) {
+                    res[index] = matrix[i][colBegin];
+                    index++;
+                }
+            }
+            colBegin++;
+        }
         return res;
     }
 
