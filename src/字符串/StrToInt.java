@@ -51,31 +51,31 @@ package 字符串;
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class StrToInt {
-    public int strToInt(String str) {
-        if (str.length() == 0) {
+    public int strToInt(String s) {
+        if (s.length() == 0) {
             return 0;
         }
         int binary = Integer.MAX_VALUE / 10;
         int index = 0, signal = 1, res = 0;
-        while (str.charAt(index) == ' ') {
+        while (s.charAt(index) == ' ') {
             index++;
-            if (index >= str.length()) {
+            if (index >= s.length()) {
                 return 0;
             }
         }
-        if (str.charAt(index) == '-'){
+        if (s.charAt(index) == '-') {
             signal = -1;
         }
-        if (str.charAt(index) == '+'||str.charAt(index) == '-'){
+        if (s.charAt(index) == '+' || s.charAt(index) == '-') {
             index++;
         }
 
 
-        while (index < str.length() && str.charAt(index) >= '0' && str.charAt(index) <= '9') {
-            if (res > binary || (res == binary && str.charAt(index) > '7')) {
+        while (index < s.length() && s.charAt(index) >= '0' && s.charAt(index) <= '9') {
+            if (res > binary || (res == binary && s.charAt(index) > '7')) {
                 return signal == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
             }
-            res = 10 * res + (str.charAt(index) - '0');
+            res = 10 * res + (s.charAt(index) - '0');
             index++;
         }
         return signal * res;
