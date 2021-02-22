@@ -79,6 +79,8 @@ public class MaxSlidingWindow {
     public int[] maxSlidingWindow(int[] nums, int k) {
         int n = nums.length;
         int[] ans = new int[n - k + 1];
+        if (n == 0)
+            return new int[]{};
         int ansIndex = 0;
         MyQueue deque = new MyQueue();
         for (int i = 0; i < k; i++) {
