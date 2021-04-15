@@ -49,10 +49,10 @@ public class RemoveNthFromEnd {
     }
 
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode dumpyNode = new ListNode();
-        dumpyNode.next = head;
-        ListNode fastNode = dumpyNode;
-        ListNode curNode = dumpyNode;
+        ListNode dummyNode = new ListNode();
+        dummyNode.next = head;
+        ListNode fastNode = dummyNode;
+        ListNode curNode = dummyNode;
         for (int i = 0; i <= n; i++) {
             fastNode = fastNode.next;
         }
@@ -62,6 +62,6 @@ public class RemoveNthFromEnd {
         }
         ListNode temp = curNode.next.next;
         curNode.next = temp;
-        return dumpyNode.next;
+        return dummyNode.next;
     }
 }
