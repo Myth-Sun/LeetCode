@@ -46,6 +46,18 @@ public class FindTargetSumWays {
         res += nums[i];
     }
 
+    //回溯算法 （简洁版）
+    public void backtrack(int[] nums, int target, int index, int sum) {
+        if (index == nums.length) {
+            if (sum == target) {
+                result++;
+            }
+        }else{
+            backtrack(nums, target, index + 1, sum + nums[index]);
+            backtrack(nums, target, index + 1, sum - nums[index]);
+        }
+    }
+
     public static void main(String[] args) {
         FindTargetSumWays findTargetSumWays = new FindTargetSumWays();
         int[] nums = {1, 1, 1, 1, 1};
