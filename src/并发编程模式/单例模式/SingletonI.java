@@ -12,7 +12,7 @@ public final class SingletonI implements Serializable {
         return INSTANCE;
     }
 
-    public Object readSolve(){
+    private Object readResolve(){
         return INSTANCE;
     }
 }
